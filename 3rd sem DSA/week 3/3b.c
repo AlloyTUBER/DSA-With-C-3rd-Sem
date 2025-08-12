@@ -73,14 +73,14 @@ int main() {
     printf("Merged list (alternate elements): ");
     display(head1);
 
-    // Free all nodes
+    // Free nodes
     struct Node *temp;
     while(head1 != NULL) {
         temp = head1;
         head1 = head1->next;
         free(temp);
     }
-    // head2 nodes are already freed as they are merged into head1
 
     return 0;
+
 }
