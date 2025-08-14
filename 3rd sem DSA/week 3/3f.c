@@ -6,28 +6,6 @@ struct Node {
     struct Node *next;
 };
 
-struct Node* create_circular(int n) {
-    struct Node *head = NULL, *temp = NULL, *new_Node = NULL;
-    int value;
-    for(int i = 0; i < n; i++) {
-        printf("Enter value for node %d: ", i+1);
-        scanf("%d", &value);
-        new_Node = (struct Node*)malloc(sizeof(struct Node));
-        new_Node->data = value;
-        new_Node->next = NULL;
-        if(head == NULL) {
-            head = new_Node;
-            temp = new_Node;
-        } else {
-            temp->next = new_Node;
-            temp = new_Node;
-        }
-    }
-    if(temp != NULL)
-        temp->next = head; // Make it circular
-    return head;
-}
-
 int count_nonzero(struct Node *head) {
     if(head == NULL) return 0;
     int count = 0;
@@ -41,24 +19,31 @@ int count_nonzero(struct Node *head) {
 }
 
 int main() {
-    int n;
-    printf("Enter number of nodes: ");
-    scanf("%d", &n);
+    struct  Node head, node1, node2, node3;
 
-    struct Node *head = create_circular(n);
+    head.next = &node1;
+    
+    node1.data = 10;
+    node1.next = &node2;
+    
+    node2.data = 20;
+    node2.next = &node3;
 
-    int nonzero = count_nonzero(head);
+    node3.data = 0;
+    node3.next = head.next;
+
+    int nonzero = count_nonzero(head.next);
     printf("Number of non-zero values in the circular linked list: %d\n", nonzero);
 
     // Free memory
-    if(head != NULL) {
-        struct Node *temp = head->next, *del;
-        while(temp != head) {
+    if(head.next != NULL) {
+        struct Node *temp = head.next->next, *del;
+        while(temp != head.next) {
             del = temp;
             temp = temp->next;
             free(del);
         }
-        free(head);
+        free(head.next);
     }
     return 0;
 }
