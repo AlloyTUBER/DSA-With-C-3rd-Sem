@@ -39,7 +39,7 @@ struct Node* insert_pos(struct Node *head, int value, int pos) {
 }
 
 int main() {
-    int n, val, pos, choice;
+    int n, val, pos;
     struct Node head, node1, node2, node3;
 
     head.next = &node1;
@@ -61,3 +61,4 @@ int main() {
 
     return 0;
 }
+
