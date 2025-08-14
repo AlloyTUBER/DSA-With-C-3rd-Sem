@@ -6,26 +6,15 @@ struct Node {
     struct Node *next;
 };
 
-struct Node* create(int n) {
-    struct Node *head = NULL, *temp = NULL, *new_Node = NULL;
-    int value;
-    for(int i = 0; i < n; i++) {
-        printf("Enter data for node %d: ", i+1);
-        scanf("%d", &value);
-        new_Node = (struct Node*)malloc(sizeof(struct Node));
-        new_Node->data = value;
-        new_Node->next = NULL;
-        if(head == NULL) {
-            head = new_Node;
-            temp = new_Node;
-        } else {
-            temp->next = new_Node;
-            temp = new_Node;
-        }
+void display(struct Node *head) {
+    struct Node *temp = head;
+    printf("Linked List: ");
+    while(temp != NULL) {
+        printf("%d->", temp->data);
+        temp = temp->next;
     }
-    return head;
+    printf("NULL\n");
 }
-
 
 struct Node* insert_pos(struct Node *head, int value, int pos) {
     struct Node *new_Node = (struct Node*)malloc(sizeof(struct Node));
@@ -49,28 +38,26 @@ struct Node* insert_pos(struct Node *head, int value, int pos) {
     return head;
 }
 
-void display(struct Node *head) {
-    struct Node *temp = head;
-    printf("Linked List: ");
-    while(temp != NULL) {
-        printf("%d->", temp->data);
-        temp = temp->next;
-    }
-    printf("NULL\n");
-}
-
 int main() {
     int n, val, pos, choice;
-    struct Node *head = NULL;
-    printf("Enter number of nodes: ");
-    scanf("%d", &n);
-    head = create(n);
+    struct Node head, node1, node2, node3;
+
+    head.next = &node1;
+
+    node1.data = 10;
+    node1.next = &node2;
+
+    node2.data = 20;
+    node2.next = &node3;
+
+    node3.data = 30;
+    node3.next = NULL;
 
     printf("Enter value and position of new node: ");
     scanf("%d %d", &val, &pos);
-    head = insert_pos(head, val, pos);
+    head.next = insert_pos(head.next, val, pos);
 
-    display(head);
+    display(head.next);
 
     return 0;
 }
