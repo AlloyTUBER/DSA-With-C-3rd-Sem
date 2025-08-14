@@ -29,26 +29,25 @@ struct Node* create(int n) {
 void display(struct Node *head) {
     struct Node *temp = head;
     while(temp != NULL) {
-        printf("%d ", temp->data);
+        printf("%d->", temp->data);
         temp = temp->next;
     }
-    printf("\n");
+    printf("NULL\n");
 }
 
 void merge_alternate(struct Node *head1, struct Node *head2) {
-    struct Node *curr1 = head1, *curr2 = head2;
     struct Node *next1, *next2;
 
-    while(curr1 != NULL && curr2 != NULL) {
-        next1 = curr1->next;
-        next2 = curr2->next;
+    while(head1 != NULL && head2 != NULL) {
+        next1 = head1->next;
+        next2 = head2->next;
 
-        curr1->next = curr2;
+        head1->next = head2;
         if(next1 == NULL) break;
-        curr2->next = next1;
+        head2->next = next1;
 
-        curr1 = next1;
-        curr2 = next2;
+        head1 = next1;
+        head2 = next2;
     }
 }
 
@@ -73,7 +72,7 @@ int main() {
     printf("Merged list (alternate elements): ");
     display(head1);
 
-    // Free nodes
+    // Free all nodes
     struct Node *temp;
     while(head1 != NULL) {
         temp = head1;
@@ -82,5 +81,4 @@ int main() {
     }
 
     return 0;
-
 }
